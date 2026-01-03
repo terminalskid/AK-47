@@ -28,9 +28,9 @@ btn.onclick = async () => {
 
     result.innerHTML = `
       <a href="${data.short}" target="_blank">${data.short}</a>
-      <div><small>/stats/${slug}</small></div>
+      <div><small>/api/stats/${slug}</small></div>
     `;
   } catch {
-    result.textContent = "api unreachable (deploy to vercel)";
+    result.textContent = "deploy required (vercel only)";
   }
 };
