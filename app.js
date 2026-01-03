@@ -10,7 +10,7 @@ btn.onclick = async () => {
     return;
   }
 
-  result.textContent = "working...";
+  result.textContent = "shortening...";
 
   try {
     const res = await fetch("/api/shorten", {
@@ -22,14 +22,15 @@ btn.onclick = async () => {
     const data = await res.json();
 
     if (!res.ok) {
-      result.textContent = data.error || "error";
+      result.textContent = data.error;
       return;
     }
 
     result.innerHTML = `
       <a href="${data.short}" target="_blank">${data.short}</a>
+      <div><small>/stats/${slug}</small></div>
     `;
-  } catch (e) {
-    result.textContent = "api error";
+  } catch {
+    result.textContent = "api unreachable (deploy to vercel)";
   }
 };
