@@ -1,0 +1,12 @@
+{
+  "routes": [
+    { "src": "^/$", "dest": "/index.html" },
+
+    { "src": "^/api/shorten$", "dest": "/api/shorten.js" },
+    { "src": "^/api/stats/([^/]+)$", "dest": "/api/stats.js?slug=$1" },
+
+    { "src": "^/r/([^/]+)$", "dest": "/api/redirect.js?slug=$1" },
+
+    { "src": ".*", "dest": "/404.html" }
+  ]
+}
