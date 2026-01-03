@@ -1,11 +1,16 @@
 const btn = document.getElementById("shorten");
 const result = document.getElementById("result");
 
-btn.addEventListener("click", async () => {
+btn.onclick = async () => {
   const url = document.getElementById("url").value.trim();
   const slug = document.getElementById("slug").value.trim();
 
-  result.textContent = "shortening...";
+  if (!url || !slug) {
+    result.textContent = "missing fields";
+    return;
+  }
+
+  result.textContent = "working...";
 
   try {
     const res = await fetch("/api/shorten", {
@@ -23,10 +28,8 @@ btn.addEventListener("click", async () => {
 
     result.innerHTML = `
       <a href="${data.short}" target="_blank">${data.short}</a>
-      <br/>
-      <small>(click to open)</small>
     `;
-  } catch {
-    result.textContent = "network error";
+  } catch (e) {
+    result.textContent = "api error";
   }
-});
+};
