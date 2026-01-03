@@ -2,25 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>akshort.vercel.app – simple link shortener</title>
+  <title>AKShort</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main>
-    <h1>ak link shortener</h1>
-    <p>free link shortener with custom URLs made by <a href="https://guns.lol/skidboi">skid</a></p>
+  <div class="wrap">
 
-    <input id="url" placeholder="https://long-link-here.com" />
-    <input id="slug" placeholder="custom-name" />
+    <h1>AKShort</h1>
+    <p class="tagline">no bullshit link shortener</p>
 
-    <button id="shorten">Shorten</button>
+    <input id="url" placeholder="https://long-link.com" />
+    <div class="slug">
+      <span>akshort.vercel.app/</span>
+      <input id="slug" placeholder="custom" />
+    </div>
 
+    <button id="shorten" type="button">SHORTEN</button>
     <div id="result"></div>
-  </main>
+
+    <hr />
+
+    <div class="links">
+      <a href="https://guns.lol/skidboi" target="_blank">My Links</a>
+      <a href="https://github.com/terminalskid" target="_blank">GitHub</a>
+      <a href="https://reddit.com/u/terminalskid" target="_blank">Reddit</a>
+      <a href="https://discord.com/invite/UgqXJ96m6" target="_blank">Discord</a>
+    </div>
+
+    <footer>
+      AKShort ©
+    </footer>
+
+  </div>
 
   <script src="app.js"></script>
 </body>
 </html>
-
-
