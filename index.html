@@ -7,34 +7,42 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
-
+  <header>
     <h1>AKShort</h1>
-    <p class="tagline">no bullshit link shortener</p>
+    <p>fast. free. no bullshit.</p>
+  </header>
 
-    <input id="url" placeholder="https://long-link.com" />
-    <div class="slug">
-      <span>akshort.vercel.app/</span>
-      <input id="slug" placeholder="custom" />
-    </div>
+  <main>
+    <section class="shortener">
+      <input id="url" placeholder="https://long-link.com" />
+      <div class="slug">
+        <span>akshort.vercel.app/r/</span>
+        <input id="slug" placeholder="custom" />
+      </div>
+      <button id="shorten">Shorten</button>
+      <div id="result"></div>
+    </section>
 
-    <button id="shorten" type="button">SHORTEN</button>
-    <div id="result"></div>
+    <section class="info">
+      <h2>What is this?</h2>
+      <p>
+        AKShort is a minimal link shortener.
+        No ads. No tracking bullshit.
+        Custom URLs only.
+      </p>
+    </section>
 
-    <hr />
-
-    <div class="links">
+    <section class="links">
       <a href="https://guns.lol/skidboi" target="_blank">My Links</a>
       <a href="https://github.com/terminalskid" target="_blank">GitHub</a>
       <a href="https://reddit.com/u/terminalskid" target="_blank">Reddit</a>
       <a href="https://discord.com/invite/UgqXJ96m6" target="_blank">Discord</a>
-    </div>
+    </section>
+  </main>
 
-    <footer>
-      AKShort ©
-    </footer>
-
-  </div>
+  <footer>
+    AKShort ©
+  </footer>
 
   <script src="app.js"></script>
 </body>
