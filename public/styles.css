@@ -1,0 +1,25 @@
+body {
+  background: #0b0b0b;
+  color: #eee;
+  font-family: monospace;
+}
+
+.wrap {
+  max-width: 500px;
+  margin: auto;
+  padding: 3rem 1rem;
+}
+
+input, button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.6rem;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+button {
+  background: #7c2d12;
+  cursor: pointer;
+}
