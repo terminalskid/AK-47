@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 const db = await open({
   filename: "links.db",
@@ -26,7 +26,7 @@ await db.exec(`
   )
 `);
 
-function isValidURL(url) {
+function validURL(url) {
   try {
     new URL(url);
     return true;
@@ -36,54 +36,51 @@ function isValidURL(url) {
 }
 
 app.post("/api/shorten", async (req, res) => {
-  const { url, slug } = req.body;
-
-  if (!url || !slug) {
-    return res.status(400).json({ error: "missing fields" });
-  }
-
-  if (!isValidURL(url)) {
-    return res.status(400).json({ error: "invalid url" });
-  }
-
-  if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
-    return res.status(400).json({ error: "invalid slug" });
-  }
-
   try {
+    const { url, slug } = req.body;
+
+    if (!url || !slug) {
+      return res.status(400).json({ error: "missing url or slug" });
+    }
+
+    if (!validURL(url)) {
+      return res.status(400).json({ error: "invalid url" });
+    }
+
+    if (!/^[a-zA-Z0-9_-]{2,30}$/.test(slug)) {
+      return res.status(400).json({ error: "bad slug format" });
+    }
+
     await db.run(
       "INSERT INTO links (slug, url) VALUES (?, ?)",
       [slug, url]
     );
 
-    res.json({
-      short: `https://short.tips.io/${slug}`
-    });
-  } catch {
-    res.status(409).json({ error: "slug already taken" });
+    res.json({ short: `https://short.tips.io/${slug}` });
+  } catch (err) {
+    if (err.message.includes("UNIQUE")) {
+      return res.status(409).json({ error: "slug already taken" });
+    }
+    res.status(500).json({ error: "server error" });
   }
 });
 
 app.get("/:slug", async (req, res) => {
-  const { slug } = req.params;
-
   const link = await db.get(
     "SELECT * FROM links WHERE slug = ?",
-    slug
+    req.params.slug
   );
 
-  if (!link) {
-    return res.status(404).send("Link not found");
-  }
+  if (!link) return res.status(404).send("not found");
 
   await db.run(
     "UPDATE links SET clicks = clicks + 1 WHERE slug = ?",
-    slug
+    req.params.slug
   );
 
-  res.redirect(302, link.url);
+  res.redirect(link.url);
 });
 
 app.listen(3000, () => {
-  console.log("tips.io running on port 3000");
+  console.log("tips.io running on http://localhost:3000");
 });
